@@ -54,24 +54,42 @@ new AwsPRDUserAccessStack(app, 'AwsPRDUserAccessStack', {
 
 ---
 
-## Bootstrap (one-time)
+## Bootstrap (one-time, new account)
 
-CDK bootstrapping provisions the S3 bucket and IAM roles CDK needs.
+CDK bootstrapping provisions the S3 bucket and IAM roles CDK needs. Bootstrap requires admin-level permissions — the `<USER_NAME>` user alone is not sufficient.
+
+### Step 1 — Attach AdministratorAccess to `<USER_NAME>` temporarily
+
+1. Sign in to the AWS Console
+2. Go to **IAM → Users → <USER_NAME> → Add permissions**
+3. Attach policy: `AdministratorAccess`
+
+### Step 2 — Bootstrap
 
 ```bash
-AWS_PROFILE=<your-prd-profile> npx cdk bootstrap aws://<PRD_ACCOUNT_ID>/ap-southeast-1
+AWS_PROFILE=<your-profile> ROLE=production npx cdk bootstrap aws://<PRD_ACCOUNT_ID>/ap-southeast-1
 ```
 
 ---
 
 ## Deploy
 
+### Step 1 — Preview changes (optional)
+
 ```bash
-AWS_PROFILE=<your-prd-profile> \
-AWS_REGION=ap-southeast-1 \
-ROLE=production \
-npm run cdk deploy
+AWS_PROFILE=<your-profile> AWS_REGION=ap-southeast-1 ROLE=production npx cdk diff
 ```
+
+### Step 2 — Deploy
+
+```bash
+AWS_PROFILE=<your-profile> AWS_REGION=ap-southeast-1 ROLE=production npm run cdk deploy
+```
+
+## Remove AdministratorAccess from `<USER_NAME>`
+
+1. Go to **IAM → Users → <USER_NAME> → Permissions**
+2. Detach `AdministratorAccess`
 
 ---
 
@@ -101,7 +119,7 @@ Available production roles:
 Then redeploy:
 
 ```bash
-AWS_PROFILE=<your-prd-profile> AWS_REGION=ap-southeast-1 ROLE=production npm run cdk deploy
+AWS_PROFILE=<your-prd-profile> ROLE=production AWS_REGION=ap-southeast-1 ROLE=production npm run cdk deploy
 ```
 
 ---

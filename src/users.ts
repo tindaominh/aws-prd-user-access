@@ -9,7 +9,7 @@ interface UserInfo {
 
 export const users: UserInfo[] = [
   {
-    email: 'affiliate.contact@gmail.com',
+    email: 'huyen99.nguyenthanh@gmail.com',
     roles: {
       production: ['read-only', 'power-user'],
     },
