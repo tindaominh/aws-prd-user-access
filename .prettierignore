@@ -1,0 +1,14 @@
+# Add files here to ignore them from prettier formatting
+dist
+node_modules
+coverage
+cdk.out
+tmp
+*.env
+*.env.*
+*.png
+*.jpeg
+*.sql
+*.sh
+*.gif
+*.ico

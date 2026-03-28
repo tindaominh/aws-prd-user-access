@@ -1,3 +1,16 @@
+.DS_Store
+
+*.js
+!jest.config.js
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+.claude
+.planning
 # Logs
 logs
 *.log
